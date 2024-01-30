@@ -2,7 +2,6 @@ import { BiDoorOpen } from "react-icons/bi";
 import { navSections } from "./../constant";
 
 const Nav = ({ user }) => {
-  console.log(user);
   return (
     <div className="flex flex-col justify-between items-end px-2 py-4">
       {/* linkler ve logo */}
