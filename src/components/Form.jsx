@@ -1,16 +1,42 @@
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { BsCardImage } from "react-icons/bs";
-import { db } from "../firebase/config";
+import { db, storage } from "../firebase/config";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 const Form = ({ user }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const tweetsCol = collection(db, "tweets");
+
+  /* aldığı fotoğrafı storagea kaydet ve urli döndür */
+
+  const uploadImage = async (file) => {
+    if (!file?.type?.startsWith("image")) return null;
+    const fileRef = ref(storage, file.name.concat(v4()));
+
+    await uploadBytes(fileRef, file);
+    return await getDownloadURL(fileRef);
+  };
+
+  /* tweet gönder */
   const handleSubmit = async (e) => {
     e.preventDefault();
     const textContent = e.target[0].value;
     const imageContent = e.target[1].files[0];
+
+    /* doğrulama */
+    if (!textContent && !imageContent)
+      return toast.info("Lütfen içerik ekleyiniz");
+
+    setIsLoading(true);
+
+    const url = await uploadImage(imageContent);
+
     await addDoc(tweetsCol, {
       textContent,
-      imageContent: null,
+      imageContent: url,
       createdAt: serverTimestamp(),
       user: {
         id: user.uid,
@@ -20,6 +46,10 @@ const Form = ({ user }) => {
       likes: [],
       isEdited: false,
     });
+
+    setIsLoading(false);
+
+    e.target.reset();
   };
   return (
     <form
@@ -46,7 +76,7 @@ const Form = ({ user }) => {
             <BsCardImage />
           </label>
           <button className="bg-blue-600 flex items-center justify-center px-4 py-2 min-w-[85px] min-h-[40px] rounded-full transition hover:bg-blue-800">
-            Tweetle
+            {isLoading ? <img src="spinner.svg" /> : "Tweetle"}
           </button>
         </div>
       </div>
