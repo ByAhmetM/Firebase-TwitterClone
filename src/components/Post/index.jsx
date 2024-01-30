@@ -1,7 +1,13 @@
+import { BiMessageRounded } from "react-icons/bi";
+import { FaRetweet } from "react-icons/fa";
+import { FcLike } from "react-icons/fc";
+import { AiOutlineHeart } from "react-icons/ai";
+import { FiShare2 } from "react-icons/fi";
+
 const Post = ({ tweet }) => {
   console.log(tweet);
   return (
-    <div className="relative flex gap-3 p-3 border-b-[1px] border-gray-700">
+    <div className="relative flex gap-3 px-3 py-6 border-b-[1px] border-gray-700">
       <img
         className="w-12 h-12 rounded-full"
         src={tweet.user.photo}
@@ -22,10 +28,28 @@ const Post = ({ tweet }) => {
         {/* tweet içeriği */}
         <div>
           {tweet.textContent && <p>{tweet.textContent}</p>}
-          {tweet.imageContent && <img src={tweet.imageContent} />}
+          {tweet.imageContent && (
+            <img
+              className="rounded-lg w-full object-cover max-h-[400px]"
+              src={tweet.imageContent}
+            />
+          )}
         </div>
         {/* iconlar */}
-        <div></div>
+        <div className="flex justify-between">
+          <div className="py-2 px-3 rounded-full cursor-pointer transition hover:bg-[#00b7ff69]">
+            <BiMessageRounded />
+          </div>
+          <div className="py-2 px-3 rounded-full cursor-pointer transition hover:bg-[#00ff4436]">
+            <FaRetweet />
+          </div>
+          <div className="py-2 px-3 rounded-full cursor-pointer transition hover:bg-[#e857d969]">
+            <AiOutlineHeart />
+          </div>
+          <div className="py-2 px-3 rounded-full cursor-pointer transition hover:bg-[#7e7e7ea8]">
+            <FiShare2 />
+          </div>
+        </div>
       </div>
     </div>
   );
