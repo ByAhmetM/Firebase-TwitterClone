@@ -1,19 +1,23 @@
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase/config";
-import { useNavigate } from "react-router-dom";
+import Nav from "./../components/Nav";
+import Main from "./../components/Main";
+import Aside from "./../components/Aside";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./../firebase/config";
 
 const FeedPage = () => {
-  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (currUser) => setUser(currUser));
+    return () => unsub();
+  }, []);
+
   return (
-    <div>
-      <button
-        onClick={() => {
-          signOut(auth);
-          navigate("/");
-        }}
-      >
-        Çıkış Yap
-      </button>
+    <div className="feed h-screen bg-black overflow-hidden">
+      <Nav user={user} />
+      <Main user={user} />
+      <Aside />
     </div>
   );
 };
