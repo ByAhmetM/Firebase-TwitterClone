@@ -1,13 +1,13 @@
 const DropDown = () => {
   return (
-    <label class="popup">
+    <label className="popup">
       <input type="checkbox" />
-      <div class="burger" tabindex="0">
+      <div className="burger" tabIndex="0">
         <span></span>
         <span></span>
         <span></span>
       </div>
-      <nav class="popup-window">
+      <nav className="popup-window">
         <legend>Eylemler</legend>
         <ul>
           <li>
