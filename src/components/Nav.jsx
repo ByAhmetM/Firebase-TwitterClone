@@ -1,5 +1,7 @@
 import { BiDoorOpen } from "react-icons/bi";
 import { navSections } from "./../constant";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/config";
 
 const Nav = ({ user }) => {
   return (
@@ -40,9 +42,12 @@ const Nav = ({ user }) => {
                 src={user.photoURL}
                 alt=""
               />
-              <p className="max-md:hidden">{user.displayName}</p>
+              <p className="max-md:hidden capitalize">{user.displayName}</p>
             </div>
-            <button className="flex justify-center gap-2 items-center p-1 bg-gray-700 rounded text-2xl md:text-[15px]">
+            <button
+              onClick={() => signOut(auth)}
+              className="flex justify-center gap-2 items-center p-1 bg-gray-700 rounded text-2xl md:text-[15px]"
+            >
               <span className="text-2xl">
                 <BiDoorOpen />
               </span>
