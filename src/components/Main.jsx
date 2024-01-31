@@ -51,7 +51,9 @@ const Main = ({ user }) => {
 
       {/* tweet listeleme */}
       {!tweets ? (
-        <Spinner />
+        <div className="flex justify-center my-10">
+          <Spinner style={"w-6 h-6 text-blue-600"} />
+        </div>
       ) : (
         tweets.map((tweet) => <Post key={tweet.id} tweet={tweet} />)
       )}
