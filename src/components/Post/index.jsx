@@ -9,7 +9,13 @@ import "moment/locale/tr";
 import { CiBookmark } from "react-icons/ci";
 import { auth, db } from "../../firebase/config";
 import DropDown from "../DropDown";
-import { arrayUnion, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  arrayRemove,
+  arrayUnion,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 
 const Post = ({ tweet }) => {
   const handleDelete = async () => {
@@ -25,7 +31,9 @@ const Post = ({ tweet }) => {
   const handleLike = async () => {
     const ref = doc(db, "tweets", tweet.id);
     await updateDoc(ref, {
-      likes: arrayUnion(auth.currentUser.uid),
+      likes: isLiked
+        ? arrayRemove(auth.currentUser.uid)
+        : arrayUnion(auth.currentUser.uid),
     });
   };
 
