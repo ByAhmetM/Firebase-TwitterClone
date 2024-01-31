@@ -1,7 +1,11 @@
-const DropDown = ({ handleDelete }) => {
+import { useRef } from "react";
+
+const DropDown = ({ handleDelete, setIsEditMode }) => {
+  const checkboxRef = useRef();
+
   return (
     <label className="popup">
-      <input type="checkbox" />
+      <input ref={checkboxRef} type="checkbox" />
       <div className="burger" tabIndex="0">
         <span></span>
         <span></span>
@@ -11,7 +15,11 @@ const DropDown = ({ handleDelete }) => {
         <legend>Eylemler</legend>
         <ul>
           <li>
-            <button>
+            <button
+              onClick={() => {
+                setIsEditMode(true), (checkboxRef.current.checked = false);
+              }}
+            >
               <img src="edit.svg" alt="" />
               <span>Düzenle</span>
             </button>

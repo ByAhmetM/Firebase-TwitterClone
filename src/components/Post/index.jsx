@@ -8,7 +8,7 @@ import moment from "moment/moment";
 import "moment/locale/tr";
 import { CiBookmark } from "react-icons/ci";
 import { auth, db } from "../../firebase/config";
-import DropDown from "../DropDown";
+import DropDown from "./DropDown";
 import {
   arrayRemove,
   arrayUnion,
@@ -16,8 +16,11 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
+import { useState } from "react";
+import EditMode from "./EditMode";
 
 const Post = ({ tweet }) => {
+  const [isEditMode, setIsEditMode] = useState(false);
   const handleDelete = async () => {
     if (confirm("Tweet'i silmeyi onaylıyor musunuz ?")) {
       const tweetRef = doc(db, "tweets", tweet.id);
@@ -39,6 +42,7 @@ const Post = ({ tweet }) => {
 
   const date = moment(tweet?.createdAt?.toDate());
   const fromNow = date.fromNow();
+
   return (
     <div className="relative flex gap-3 px-3 py-6 border-b-[1px] border-gray-700 hover:bg-[#5d5d5d4a] cursor-pointer">
       <img
@@ -50,27 +54,35 @@ const Post = ({ tweet }) => {
         {/* üst kısım kullanıcı bilgileri */}
         <div className="flex justify-between">
           <div className="flex items-center gap-3">
-            <p className="font-bold hover:underline">{tweet.user.name}</p>
-            <p className="text-gray-400">
+            <p className="font-bold hover:underline capitalize">
+              {tweet.user.name}
+            </p>
+            <p className="text-gray-400 text-sm">
               @{tweet?.user?.name?.toLowerCase().replaceAll(" ", "_")}
             </p>
             <p
               title={date.format("LLLL")}
-              className="text-gray-400 hover:underline"
+              className="text-gray-400 text-sm hover:underline"
             >
               {fromNow}
             </p>
           </div>
           {tweet.user.id === auth.currentUser.uid && (
-            <DropDown handleDelete={handleDelete} />
+            <DropDown
+              setIsEditMode={setIsEditMode}
+              handleDelete={handleDelete}
+            />
           )}
         </div>
         {/* tweet içeriği */}
-        <div className="mt-1 mb-3">
-          {tweet.textContent && <p>{tweet.textContent}</p>}
-          {tweet.imageContent && (
+        <div className="my-3">
+          {isEditMode && (
+            <EditMode tweet={tweet} close={() => setIsEditMode(false)} />
+          )}
+          {!isEditMode && tweet.textContent && <p>{tweet.textContent}</p>}
+          {!isEditMode && tweet.imageContent && (
             <img
-              className="rounded-lg w-full object-cover max-h-[400px]"
+              className="rounded-lg w-full my-4 object-cover max-h-[400px]"
               src={tweet.imageContent}
             />
           )}
