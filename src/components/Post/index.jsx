@@ -3,16 +3,32 @@ import { FaRetweet } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FiUpload } from "react-icons/fi";
-
 import { TbChartInfographic } from "react-icons/tb";
-
 import moment from "moment/moment";
 import "moment/locale/tr";
 import { CiBookmark } from "react-icons/ci";
-import { auth } from "../../firebase/config";
+import { auth, db } from "../../firebase/config";
 import DropDown from "../DropDown";
+import { arrayUnion, deleteDoc, doc, updateDoc } from "firebase/firestore";
 
 const Post = ({ tweet }) => {
+  const handleDelete = async () => {
+    if (confirm("Tweet'i silmeyi onaylıyor musunuz ?")) {
+      const tweetRef = doc(db, "tweets", tweet.id);
+
+      await deleteDoc(tweetRef);
+    }
+  };
+
+  const isLiked = tweet.likes.find((id) => id === auth.currentUser.uid);
+
+  const handleLike = async () => {
+    const ref = doc(db, "tweets", tweet.id);
+    await updateDoc(ref, {
+      likes: arrayUnion(auth.currentUser.uid),
+    });
+  };
+
   const date = moment(tweet?.createdAt?.toDate());
   const fromNow = date.fromNow();
   return (
@@ -37,7 +53,9 @@ const Post = ({ tweet }) => {
               {fromNow}
             </p>
           </div>
-          {tweet.user.id === auth.currentUser.uid && <DropDown />}
+          {tweet.user.id === auth.currentUser.uid && (
+            <DropDown handleDelete={handleDelete} />
+          )}
         </div>
         {/* tweet içeriği */}
         <div className="mt-1 mb-3">
@@ -65,10 +83,12 @@ const Post = ({ tweet }) => {
               <FaRetweet />
             </div>
             <div
+              onClick={handleLike}
               title="Beğen"
-              className="py-2 px-3 rounded-full cursor-pointer transition hover:bg-[#e857d969]"
+              className="flex items-center gap-3 py-2 px-3 rounded-full cursor-pointer transition hover:bg-[#e857d969]"
             >
-              <AiOutlineHeart />
+              {isLiked ? <FcLike /> : <AiOutlineHeart />}
+              <span className="text-sm">{tweet.likes.length}</span>
             </div>
             <div
               title="Görüntüle"

@@ -1,4 +1,4 @@
-const DropDown = () => {
+const DropDown = ({ handleDelete }) => {
   return (
     <label className="popup">
       <input type="checkbox" />
@@ -18,7 +18,7 @@ const DropDown = () => {
           </li>
           <hr />
           <li>
-            <button>
+            <button onClick={handleDelete}>
               <img src="delete.svg" alt="" />
               <span>Kaldır</span>
             </button>
