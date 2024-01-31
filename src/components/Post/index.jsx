@@ -54,7 +54,7 @@ const Post = ({ tweet }) => {
         {/* üst kısım kullanıcı bilgileri */}
         <div className="flex justify-between">
           <div className="flex items-center gap-3">
-            <p className="font-bold hover:underline capitalize">
+            <p className="font-bold hover:underline capitalize whitespace-nowrap">
               {tweet.user.name}
             </p>
             <p className="text-gray-400 text-sm">
@@ -62,7 +62,7 @@ const Post = ({ tweet }) => {
             </p>
             <p
               title={date.format("LLLL")}
-              className="text-gray-400 text-sm hover:underline"
+              className="text-gray-400 text-sm whitespace-nowrap hover:underline"
             >
               {fromNow}
             </p>
