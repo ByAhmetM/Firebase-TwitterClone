@@ -6,7 +6,7 @@ import { v4 } from "uuid";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import Post from "./Post/index";
-import { NavLink } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 
 const Profile = ({ setOpenProfile, user }) => {
   const [tweets, setTweets] = useState(null);
@@ -61,14 +61,14 @@ const Profile = ({ setOpenProfile, user }) => {
   return (
     <div className="overflow-auto flex flex-col items-center gap-10 py-10 border-l-[1px] border-gray-400 border-r-[1px]">
       {/* üst kısım */}
-      <div className="flex justify-between items-center gap-10">
-        <h2 className="text-2xl">Profilini Düzenle</h2>
+      <div className="flex self-start items-center p-2 gap-5">
         <button
           onClick={() => setOpenProfile(false)}
-          className="p-2 text-sm bg-red-500 rounded-xl"
+          className="p-2 text-xl rounded-xl"
         >
-          Geri Dön
+          <FaArrowLeft />
         </button>
+        <h2 className="text-2xl capitalize">{auth.currentUser.displayName}</h2>
       </div>
       <div className="flex items-center justify-between w-full p-3">
         {/* kullanıcı bilgileri */}
@@ -153,7 +153,7 @@ const Profile = ({ setOpenProfile, user }) => {
           </span>{" "}
           adlı kullanıcıya ait{" "}
           <span className=" text-green-500 capitalize font-bold">
-            {isActive}
+            {isActive.replace("_", " ")}
           </span>
         </h2>
         <div className="profile-buttons flex justify-between items-center my-5">
@@ -170,8 +170,8 @@ const Profile = ({ setOpenProfile, user }) => {
             Yanıtlar
           </button>
           <button
-            onClick={() => setIsActive("Onecikanlar")}
-            className={`${isActive === "Onecikanlar" ? "aktif" : ""}`}
+            onClick={() => setIsActive("One_Cikanlar")}
+            className={`${isActive === "One_Cikanlar" ? "aktif" : ""}`}
           >
             Öne Çıkanlar
           </button>
