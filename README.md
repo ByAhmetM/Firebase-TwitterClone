@@ -10,4 +10,4 @@ Kullanıcılar, metin içeriği ve resim ekleyerek tweet atabilir, beğenebilir 
 ## Proje Hakkında
 
 Bu proje, Firebase Firestore ve Firebase Storage kullanılarak oluşturulmuştur. 
-Kullanıcılar tweet atabilir, diğer tweetleri görüntüleyebilir ve etkileşimde bulunabilirler.
+Kullanıcılar tweet atabilir, diğer tweetleri görüntüleyebilir ve etkileşimde bulunabilirler. Profillerini değiştirebilirler. İsimlerini şifrelerini ve fotoğraflarını güncelleyebilirler. Tweet silip tweet güncelleyebilirler.
