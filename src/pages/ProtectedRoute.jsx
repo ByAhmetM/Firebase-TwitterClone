@@ -24,7 +24,7 @@ const ProtectedRoute = () => {
 
   const activeUser = localStorage.getItem("TOKEN");
 
-  if (isAuth === true || activeUser) {
+  if (isAuth === true || auth?.currentUser?.uid === activeUser) {
     return <Outlet />;
   }
 };
