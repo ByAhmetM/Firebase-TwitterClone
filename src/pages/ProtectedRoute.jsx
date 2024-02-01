@@ -18,15 +18,11 @@ const ProtectedRoute = () => {
     return () => unsub();
   }, []);
 
-  if (isAuth === false) {
+  if (isAuth === false && !localStorage.getItem("TOKEN")) {
     return <Navigate to={"/"} replace />;
   }
 
-  const activeUser = localStorage.getItem("TOKEN");
-
-  if (isAuth === true && auth?.currentUser?.uid === activeUser) {
-    return <Outlet />;
-  }
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
