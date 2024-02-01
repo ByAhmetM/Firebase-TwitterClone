@@ -85,7 +85,7 @@ const Profile = ({ setOpenProfile, user }) => {
               {auth?.currentUser?.displayName}
             </span>
             <span className="text-sm text-gray-400">
-              @{auth?.currentUser?.displayName.replace(" ", "_")}
+              @{auth?.currentUser?.displayName?.replace(" ", "_")}
             </span>
           </p>
         </div>
@@ -153,7 +153,7 @@ const Profile = ({ setOpenProfile, user }) => {
           </span>{" "}
           adlı kullanıcıya ait{" "}
           <span className=" text-green-500 capitalize font-bold">
-            {isActive.replace("_", " ")}
+            {isActive?.replace("_", " ")}
           </span>
         </h2>
         <div className="profile-buttons flex justify-between items-center my-5">
