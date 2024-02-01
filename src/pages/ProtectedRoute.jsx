@@ -8,8 +8,7 @@ const ProtectedRoute = () => {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
-      localStorage.setItem("TOKEN", user.uid);
-      if (user && localStorage.getItem("TOKEN") === user.uid) {
+      if (user) {
         setIsAuth(true);
       } else {
         setIsAuth(false);
