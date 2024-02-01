@@ -1,9 +1,8 @@
 import { collection, count, getAggregateFromServer } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
-const Aside = () => {
+const Aside = ({ open }) => {
   const [data, setData] = useState(null);
   const tweetCol = collection(db, "tweets");
 
@@ -18,12 +17,12 @@ const Aside = () => {
       <p className="my-5 text-center p-3 text-lg">
         Toplam Tweet Sayısı: {data?.tweetsCount?.integerValue}
       </p>
-      <Link
-        to={"/profile"}
+      <button
+        onClick={open}
         className="px-3 py-2 rounded-xl bg-blue-500 transition hover:bg-blue-700"
       >
         Profil
-      </Link>
+      </button>
     </div>
   );
 };

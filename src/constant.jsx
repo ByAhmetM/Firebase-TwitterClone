@@ -10,6 +10,7 @@ export const navSections = [
   {
     title: "Anasayfa",
     icon: <BiHomeCircle />,
+    to: "home",
   },
   {
     title: "Bildirimler",
@@ -34,6 +35,7 @@ export const navSections = [
   {
     title: "Profil",
     icon: <CgProfile />,
+    to: "profile",
   },
   {
     title: "Daha Fazla",

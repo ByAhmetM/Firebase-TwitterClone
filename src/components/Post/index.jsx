@@ -29,7 +29,7 @@ const Post = ({ tweet }) => {
     }
   };
 
-  const isLiked = tweet.likes.find((id) => id === auth.currentUser.uid);
+  const isLiked = tweet?.likes?.find((id) => id === auth.currentUser.uid);
 
   const handleLike = async () => {
     const ref = doc(db, "tweets", tweet.id);
@@ -39,7 +39,6 @@ const Post = ({ tweet }) => {
         : arrayUnion(auth.currentUser.uid),
     });
   };
-
   const date = moment(tweet?.createdAt?.toDate());
   const fromNow = date.fromNow();
 
@@ -47,7 +46,7 @@ const Post = ({ tweet }) => {
     <div className="relative flex gap-3 px-3 py-6 border-b-[1px] border-gray-700 hover:bg-[#5d5d5d4a] cursor-pointer">
       <img
         className="w-12 h-12 rounded-full"
-        src={tweet.user.photo}
+        src={tweet?.user?.photo}
         alt="user-image"
       />
       <div className="w-full ">
@@ -55,7 +54,7 @@ const Post = ({ tweet }) => {
         <div className="flex justify-between">
           <div className="flex items-center gap-3">
             <p className="font-bold hover:underline capitalize whitespace-nowrap">
-              {tweet.user.name}
+              {tweet?.user?.name}
             </p>
             <p className="text-gray-400 text-sm">
               @{tweet?.user?.name?.toLowerCase().replaceAll(" ", "_")}
@@ -67,7 +66,7 @@ const Post = ({ tweet }) => {
               {fromNow}
             </p>
           </div>
-          {tweet.user.id === auth.currentUser.uid && (
+          {tweet?.user?.id === auth.currentUser.uid && (
             <DropDown
               setIsEditMode={setIsEditMode}
               handleDelete={handleDelete}
@@ -108,7 +107,7 @@ const Post = ({ tweet }) => {
               className="flex items-center gap-3 py-2 px-3 rounded-full cursor-pointer transition hover:bg-[#e857d969]"
             >
               {isLiked ? <FcLike /> : <AiOutlineHeart />}
-              <span className="text-sm">{tweet.likes.length}</span>
+              <span className="text-sm">{tweet?.likes?.length}</span>
             </div>
             <div
               title="Görüntüle"

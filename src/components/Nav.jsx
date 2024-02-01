@@ -2,8 +2,9 @@ import { BiDoorOpen } from "react-icons/bi";
 import { navSections } from "./../constant";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/config";
+import { NavLink } from "react-router-dom";
 
-const Nav = ({ user }) => {
+const Nav = ({ user, setOpenProfile }) => {
   return (
     <div className="flex flex-col justify-between items-center px-2 py-4">
       {/* linkler ve logo */}
@@ -20,9 +21,25 @@ const Nav = ({ user }) => {
               className="flex justify-center md:justify-normal items-center gap-5  md:text-xl p-3 cursor-pointer transition rounded-3xl hover:bg-[#505050b7]"
             >
               <span className="text-3xl"> {a.icon}</span>
-              <span className="max-md:hidden whitespace-nowrap text-xl font-bold ">
-                {a.title}
-              </span>
+              {a.to === "profile" ? (
+                <NavLink
+                  onClick={() => setOpenProfile(true)}
+                  className="max-md:hidden whitespace-nowrap text-xl font-bold "
+                >
+                  {a.title}
+                </NavLink>
+              ) : a.to === "home" ? (
+                <NavLink
+                  onClick={() => setOpenProfile(false)}
+                  className="max-md:hidden whitespace-nowrap text-xl font-bold "
+                >
+                  {a.title}
+                </NavLink>
+              ) : (
+                <NavLink className="max-md:hidden whitespace-nowrap text-xl font-bold ">
+                  {a.title}
+                </NavLink>
+              )}
             </div>
           ))}
         </div>
