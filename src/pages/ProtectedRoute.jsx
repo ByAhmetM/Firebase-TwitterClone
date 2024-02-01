@@ -8,6 +8,7 @@ const ProtectedRoute = () => {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
+      localStorage.setItem("TOKEN", user.uid);
       if (user) {
         setIsAuth(true);
       } else {
@@ -21,7 +22,11 @@ const ProtectedRoute = () => {
     return <Navigate to={"/"} replace />;
   }
 
-  return <Outlet />;
+  const activeUser = localStorage.getItem("TOKEN");
+
+  if (isAuth === true || activeUser) {
+    return <Outlet />;
+  }
 };
 
 export default ProtectedRoute;
