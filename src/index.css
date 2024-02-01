@@ -13,7 +13,7 @@ body {
 
 .feed {
     display: grid;
-    grid-template-columns: 1fr minmax(400px, 600px) 1fr;
+    grid-template-columns: 1fr minmax(500px, 700px) 1fr;
 }
 
 *::-webkit-scrollbar {
