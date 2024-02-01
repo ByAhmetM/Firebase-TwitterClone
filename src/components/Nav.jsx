@@ -24,19 +24,19 @@ const Nav = ({ user, setOpenProfile }) => {
               {a.to === "profile" ? (
                 <NavLink
                   onClick={() => setOpenProfile(true)}
-                  className="max-md:hidden whitespace-nowrap text-xl font-bold "
+                  className="max-md:hidden whitespace-nowrap text-xl "
                 >
                   {a.title}
                 </NavLink>
               ) : a.to === "home" ? (
                 <NavLink
                   onClick={() => setOpenProfile(false)}
-                  className="max-md:hidden whitespace-nowrap text-xl font-bold "
+                  className="max-md:hidden whitespace-nowrap text-xl "
                 >
                   {a.title}
                 </NavLink>
               ) : (
-                <NavLink className="max-md:hidden whitespace-nowrap text-xl font-bold ">
+                <NavLink className="max-md:hidden whitespace-nowrap text-xl ">
                   {a.title}
                 </NavLink>
               )}

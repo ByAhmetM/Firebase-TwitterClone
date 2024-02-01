@@ -295,3 +295,8 @@ header {
 .profile-buttons button:hover {
     background-color: #242424;
 }
+
+.active {
+    font-weight: normal;
+
+}
